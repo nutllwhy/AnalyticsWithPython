@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
+#coding:utf-8
 from math import exp, log, sqrt
 import re
 from datetime import date, time, datetime, timedelta
 from operator import itemgetter
+import numpy as np
+import sys
+import glob
+import os
+
 
 # print("Output #1: I'm excited to learn Python.")
 #
@@ -283,92 +289,212 @@ from operator import itemgetter
 # print("Output #100: {}".format(tuple(my_list)))
 # print("Output #101: {}".format(list(my_tuple)))
 
-# 使用花括号创建字典
-# 用冒号分割键-值对
-# 用len()计算出字典中键-值对的数量
-empty_dict = { }
-a_dict = {'one':1, 'two':2, 'three':3}
-print("Output #102: {}".format(a_dict))
-print("Output #103: a_dict has {!s} elements".format(len(a_dict)))
-another_dict = {'x':'printer', 'y':5, 'z':['star', 'circle', 9]}
-print("Output #104: {}".format(another_dict))
-print("Output #105: another_dict also has {!s} elements"\
-      .format(len(another_dict)))
-
-# 使用键来引用字典中特定的值
-print("Output #106: {}".format(a_dict['two']))
-print("Output #107: {}".format(another_dict['z']))
-
-# 使用copy()复制一个字典
-a_new_dict = a_dict.copy()
-print("Output #108: {}".format(a_new_dict))
-
-# 使用keys()、value()和items()
-# 分别引用字典中的键、值和键-值对
-print("Output #109: {}".format(a_dict.keys()))
-a_dict_keys = a_dict.keys()
-print("Output #110: {}".format(a_dict_keys))
-print("Output #111: {}".format(a_dict.values()))
-print("Output #112: {}".format(a_dict.items()))
-
-if 'y' in another_dict:
-    print("Output #114: y is a key in another_dict: {}."\
-          .format(another_dict.keys()))
-if 'c' not in another_dict:
-    print("Output #115: c is not a key in another_dict: {}."\
-          .format(another_dict.keys()))
-print("Output #116: {!s}".format(a_dict.get('three')))
-print("Output #117: {!s}".format(a_dict.get('four')))
-print("Output #118: {!s}".format(a_dict.get('four', 'Not in dict')))
-
-# 使用sorted()对字典进行排序
-# 要相对字典排序的同时不修改原字典
-# 先复制字典
-print("Output #119: {}".format(a_dict))
-dict_copy = a_dict.copy()
-ordered_dict1 = sorted(dict_copy.items(), key=lambda item: item[0])
-print("Output #120 (order by keys): {}".format(ordered_dict1))
-ordered_dict2 = sorted(dict_copy.items(), key=lambda item: item[1])
-print("Output #121 (order by values): {}".format(ordered_dict2))
-ordered_dict3 = sorted(dict_copy.items(), key=lambda x: x[1], reverse=True)
-print("Output #122 (order by values, descending): {}".format(ordered_dict3))
-ordered_dict4 = sorted(dict_copy.items(), key=lambda x:x[1], reverse=False)
-print("Output #123 (order by values, ascending): {}".format(ordered_dict4))
-
-x = 5
-# if x > 4 or x != 9:
-#     print("Output #124: {}".format(x))
+# # 使用花括号创建字典
+# # 用冒号分割键-值对
+# # 用len()计算出字典中键-值对的数量
+# empty_dict = { }
+# a_dict = {'one':1, 'two':2, 'three':3}
+# print("Output #102: {}".format(a_dict))
+# print("Output #103: a_dict has {!s} elements".format(len(a_dict)))
+# another_dict = {'x':'printer', 'y':5, 'z':['star', 'circle', 9]}
+# print("Output #104: {}".format(another_dict))
+# print("Output #105: another_dict also has {!s} elements"\
+#       .format(len(another_dict)))
+#
+# # 使用键来引用字典中特定的值
+# print("Output #106: {}".format(a_dict['two']))
+# print("Output #107: {}".format(another_dict['z']))
+#
+# # 使用copy()复制一个字典
+# a_new_dict = a_dict.copy()
+# print("Output #108: {}".format(a_new_dict))
+#
+# # 使用keys()、value()和items()
+# # 分别引用字典中的键、值和键-值对
+# print("Output #109: {}".format(a_dict.keys()))
+# a_dict_keys = a_dict.keys()
+# print("Output #110: {}".format(a_dict_keys))
+# print("Output #111: {}".format(a_dict.values()))
+# print("Output #112: {}".format(a_dict.items()))
+#
+# if 'y' in another_dict:
+#     print("Output #114: y is a key in another_dict: {}."\
+#           .format(another_dict.keys()))
+# if 'c' not in another_dict:
+#     print("Output #115: c is not a key in another_dict: {}."\
+#           .format(another_dict.keys()))
+# print("Output #116: {!s}".format(a_dict.get('three')))
+# print("Output #117: {!s}".format(a_dict.get('four')))
+# print("Output #118: {!s}".format(a_dict.get('four', 'Not in dict')))
+#
+# # 使用sorted()对字典进行排序
+# # 要相对字典排序的同时不修改原字典
+# # 先复制字典
+# print("Output #119: {}".format(a_dict))
+# dict_copy = a_dict.copy()
+# ordered_dict1 = sorted(dict_copy.items(), key=lambda item: item[0])
+# print("Output #120 (order by keys): {}".format(ordered_dict1))
+# ordered_dict2 = sorted(dict_copy.items(), key=lambda item: item[1])
+# print("Output #121 (order by values): {}".format(ordered_dict2))
+# ordered_dict3 = sorted(dict_copy.items(), key=lambda x: x[1], reverse=True)
+# print("Output #122 (order by values, descending): {}".format(ordered_dict3))
+# ordered_dict4 = sorted(dict_copy.items(), key=lambda x:x[1], reverse=False)
+# print("Output #123 (order by values, ascending): {}".format(ordered_dict4))
+#
+# x = 5
+# # if x > 4 or x != 9:
+# #     print("Output #124: {}".format(x))
+# # else:
+# #     print("Output #124: x is not greater than 4")
+#
+# if x > 6:
+#     print("Output #125: x is greater than six")
+# elif x > 4 and x == 5:
+#     print("Output #125: {}".format(x*x))
 # else:
-#     print("Output #124: x is not greater than 4")
+#     print("Output #125: x is not greater than 4")
+#
+# y = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', \
+#      'Nov', 'Dec']
+# z = ['Annie', 'Betty', 'Claire', 'Daphne', 'Ellie', 'Franchesca', 'Greta', \
+#      'Holly', 'Isabel', 'Jenny']
+# print("Output #126:")
+# for month in y:
+#     print("{!s}".format(month))
+#
+# print("Output #127: (index value: name in list)")
+# for i in range(len(z)):
+#     print("{0!s}: {1:s}".format(i, z[i]))
+#
+# print("Output #128: (access elements in y with z's index values)")
+# for j in range(len(z)):
+#     if y[j].startswith('J'):
+#         print("{!s}".format(y[j]))
+#
+# print("Output #129:")
+# for key, value in another_dict.items():
+#     print("{0:s}, {1}".format(key, value))
+#
+# my_data = [[1,2,3], [4,5,6], [7,8,9]]
+# rows_to_keep = [row for row in my_data if row[2] > 5]
+# print("Output #130 (list comprehension): {}".format(rows_to_keep))
+#
+# my_data = [(1,2,3), (4,5,6), (7,8,9), (7,8,9)]
+# set_of_tuples1 = {x for x in my_data}
+# print("Output #131 (set comprehension): {}".format(set_of_tuples1))
+# set_of_tuples2 = set(my_data)
+# print("Output #132 (set function): {}".format(set_of_tuples2))
+#
+# my_dictionary = {'customer1': 7, 'customer2': 9, 'customer3': 11}
+# my_results = {key: value for key, value in my_dictionary.items() if\
+#               value > 10}
+# print("Output #133 (dictionary comprehension): {}".format(my_results))
+#
+# print("Output #134:")
+# x = 0
+# while x < 11:
+#     print("{!s}".format(x))
+#     x += 1
+#
+# def getMean(numericValues):
+#     return sum(numericValues)/len(numericValues) if len(numericValues) > 0\
+#         else float('nan')
+#
+# my_list = [2, 2, 4, 4, 6, 6, 8, 8]
+# print("Output #135 (mean): {!s}".format(getMean(my_list)))
+#
+# print(np.mean(my_list))
 
-if x > 6:
-    print("Output #125: x is greater than six")
-elif x > 4 and x == 5:
-    print("Output #125: {}".format(x*x))
-else:
-    print("Output #125: x is not greater than 4")
+# def getMean(numericValues):
+#     return sum(numericValues)/len(numericValues)
+# my_list2 = []
+#
+# try:
+#     print("Output #138: {}".format(getMean(my_list2)))
+# except ZeroDivisionError as detail:
+#     print("Output #138 (Error): {}".format(float('nan')))
+#     print("Output #138 (Error): {}".format(detail))
+#
+# try:
+#     result = getMean(my_list2)
+# except ZeroDivisionError as detail:
+#     print("Output #142 (Error): " + str(float('nan')))
+#     print("Output #142 (Error)", detail)
+# else:
+#     print("Output #142 (The mean is):", result)
+# finally:
+#     print("Output #142 (Finally): The finally block is executed every time")
 
-y = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', \
-     'Nov', 'Dec']
-z = ['Annie', 'Betty', 'Claire', 'Daphne', 'Ellie', 'Franchesca', 'Greta', \
-     'Holly', 'Isabel', 'Jenny']
-print("Output #126:")
-for month in y:
-    print("{!s}".format(month))
+# input_file = sys.argv[1]
+#
+# print("Output #143: ")
+# filereader = open(input_file, 'r')
+# for row in filereader:
+#     print(row.strip())
+# filereader.close()
 
-print("Output #127: (index value: name in list)")
-for i in range(len(z)):
-    print("{0!s}: {1:s}".format(i, z[i]))
+# input_file = sys.argv[1]
+# print("Output #144:")
+# with open(input_file, 'r', newline='') as filereader:
+#     for row in filereader:
+#         print("{}".format(row.strip()))
 
-print("Output #128: (access elements in y with z's index values)")
-for j in range(len(z)):
-    if y[j].startswith('J'):
-        print("{!s}".format(y[j]))
+# print("Output #145:")
+# inputPath = sys.argv[1]
+# for input_file in glob.glob(os.path.join(inputPath,'*.txt')):
+#     with open(input_file, 'r', newline='') as filereader:
+#         for row in filereader:
+#             print("{}".format(row.strip()))
 
-print("Output #129:")
-for key, value in another_dict.items():
-    print("{0:s}, {1}".format(key, value))
- 
-my_data = [[1,2,3], [4,5,6], [7,8,9]]
-rows_to_keep = [row for row in my_data if row[2] > 5]
-print("Output #130 (list comprehension): {}".format(rows_to_keep))
+# my_letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+# max_index = len(my_letters)
+# output_file = sys.argv[1]
+# filewriter = open(output_file, 'w')
+# for index_value in range(len(my_letters)):
+#     if index_value < (max_index-1):
+#         filewriter.write(my_letters[index_value]+'\t')
+#     else:
+#         filewriter.write(my_letters[index_value]+'\n')
+# filewriter.close()
+# print("Output #146: Output written to file")
+
+# my_numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+# max_index = len(my_numbers)
+# output_file = sys.argv[1]
+# filewriter = open(output_file, 'a')
+# for index_value in range(len(my_numbers)):
+#     if index_value < (max_index-1):
+#         filewriter.write(str(my_numbers[index_value])+',')
+#     else:
+#         filewriter.write(str(my_numbers[index_value])+'\n')
+# filewriter.close()
+# print("Output #147: Output appended to file")
+
+# list1 = [1, 2, 3]
+# list2 = [4, 5, 6]
+# list3 = [7, 8, 9]
+# list_add = list1 + list2 + list3
+# print(list_add)
+# for index_value in range(len(list_add)):
+#     print("{0:d}: {1!s}".format(index_value, list_add[index_value]))
+
+# list1 = ['one', 2, 3]
+# list2 = [4, 5, 6]
+# dict = { }
+# for list_value in range(len(list1)):
+#     if list1[list_value] not in dict:
+#         dict[list1[list_value]] = list2[list_value]
+# for key, value in dict.items():
+#     print("{0!s}: {1}".format(key, value))
+
+list_of_lists = [['cow','pig','horse'], ['dog','cat','gold fish'],\
+                 ['lion','elephant','gorilla']]
+for animal_list in list_of_lists:
+    max_index = len(animal_list)
+    output = ''
+    for index in range(len(animal_list)):
+        if index < (max_index-1):
+            output += str(animal_list[index]) + ','
+        else:
+            output += str(animal_list[index]) + '\n'
+print(output)
